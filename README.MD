@@ -31,5 +31,7 @@ Clone the repository
 *Note: Run inside the project directory*
 
 `docker-compose up -d`
+or
+`podman-compose up -d`
 
 ## PS Based on original image by https://github.com/jurapro/apache-php-mysql-node
