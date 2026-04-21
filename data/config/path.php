@@ -1,15 +1,7 @@
 <?php
 
 return [
-
-'root' => 'data',
-
-'classes' => [
-    'app',
-    'core',
-
-],
-
+'root' => 'public',
 'routes' => 'routes',
 'views' => 'views'
 ];

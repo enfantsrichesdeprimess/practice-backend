@@ -84,3 +84,8 @@ RUN a2enmod rewrite
 
 # Normalize (in case bind-mount reintroduced CRLF), make executable, then run.
 ENTRYPOINT ["/bin/sh", "-c", "tmp=\"$(mktemp)\"; tr -d '\r' < /usr/local/bin/start.sh > \"$tmp\" && cp \"$tmp\" /usr/local/bin/start.sh && rm -f \"$tmp\"; tmp=\"$(mktemp)\"; tr -d '\r' < /etc/ssh/sshd_config > \"$tmp\" && cp \"$tmp\" /etc/ssh/sshd_config 2>/dev/null && rm -f \"$tmp\" || true; chmod 777 /usr/local/bin/start.sh; exec /usr/local/bin/start.sh"]
+
+RUN a2enmod rewrite
+
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf

@@ -19,7 +19,7 @@ services:
     restart: always
     container_name: ${USER_LOGIN:-login}_web
     volumes:
-      - ./data/html:/var/www/html
+      - ./data:/var/www/html
       - ./images/web/start.sh:/usr/local/bin/start.sh:Z
       - ./images/web/sshd_config:/etc/ssh/sshd_config
     ports:
