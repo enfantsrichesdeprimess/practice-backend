@@ -11,6 +11,3 @@ try {
    print_r($exception);
    echo '</pre>';
 }
-
-echo 'INDEX HIT';
-die;

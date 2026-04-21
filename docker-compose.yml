@@ -15,6 +15,7 @@ services:
     environment:
       - APACHE_RUN_USER=${USER_LOGIN:-login}
       - APACHE_RUN_GROUP=${USER_LOGIN:-login}
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
       - LC_CDPATH=/var/www/html
     restart: always
     container_name: ${USER_LOGIN:-login}_web
