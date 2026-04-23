@@ -5,7 +5,9 @@
   "license": "MIT",
   "minimum-stability": "dev",
   "require": {
-    "php": "^8.0"
+    "php": "^8.0",
+    "illuminate/database": "13.x-dev",
+    "illuminate/events": "13.x-dev"
   },
   "autoload": {
     "psr-4": {

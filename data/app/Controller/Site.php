@@ -1,18 +1,32 @@
 <?php 
 
 namespace Controller; 
+
 use Src\View; 
+use Model\Post;
+use Model\User;
+use Src\Request;
+
 
 class Site 
 { 
-   public function index(): string 
+   public function index(Request $request): string 
    { 
-       $view = new View(); 
-       return $view->render('site.hello', ['message' => 'index working']);
+      $posts = Post::where('id', $request->id)->get(); 
+      return (new View())->render('site.post', ['posts' => $posts]); 
    } 
 
    public function hello(): string 
    { 
-       return (new View())->render('site.hello', ['message' => 'hello working']); 
+       return new View('site.hello', ['message' => 'hello working']); 
    } 
+
+   public function signup(Request $request): string
+   {
+    if ($request->method==='POST' && User::create($request->all()))
+       { 
+           return new View('site.signup', ['message'=>'Вы успешно зарегистрированы']); 
+       } 
+       return new View('site.signup'); 
+   }
 } 
