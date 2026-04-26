@@ -57,4 +57,11 @@ class Auth
        Session::clear('id'); 
        return true; 
    } 
+   
+   public static function generateCSRF(): string
+    {
+        $token = md5(time() . rand());
+        Session::set('csrf_token', $token);
+        return $token;
+    }
 } 

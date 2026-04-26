@@ -14,7 +14,7 @@ trait SingletonTrait
    } 
 
    private function __construct() 
-   { 
+   {  
 
    } 
 } 
