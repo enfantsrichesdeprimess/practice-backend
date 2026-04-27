@@ -16,7 +16,7 @@
         <tr>
             <td><?= htmlspecialchars($dept->name) ?></td>
             <td><?= htmlspecialchars($dept->type) ?></td>
-            <td><?= $dept->worker_count ?? 0 ?></td>
+            <td><?= $dept->workers_count ?? 0 ?></td>
             <td>
                 <a href="<?= app()->route->getUrl('/departments/' . $dept->id) ?>" class="btn">Просмотреть</a>
             </td>

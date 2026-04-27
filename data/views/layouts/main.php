@@ -44,7 +44,7 @@
             <a href="<?= app()->route->getUrl('/workers') ?>">Сотрудники</a>
             <a href="<?= app()->route->getUrl('/departments') ?>">Подразделения</a>
             <?php if (app()->auth->check()): ?>
-                <span style="margin-left: auto;"><?= app()->auth->user()->name ?? 'Пользователь' ?></span>
+                <span style="margin-left: auto;"><?= app()->auth->user()->login ?? 'Пользователь' ?></span>
                 <a href="<?= app()->route->getUrl('/logout') ?>" style="margin-left: 1rem;">Выход</a>
             <?php else: ?>
                 <a href="<?= app()->route->getUrl('/login') ?>" style="margin-left: auto;">Вход</a>

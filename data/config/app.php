@@ -10,10 +10,10 @@ return [
        'role' => \Middlewares\RoleMiddleware::class,  
    ],
    'validators' => [
-        'required' => \Validators\RequireValidator::class,
-        'unique' => \Validators\UniqueValidator::class,
-        'min' => \Validators\MinValidator::class,
-        'in' => \Validators\InValidator::class,
-        'date' => \Validators\DateValidator::class,
+        'required' => \Src\Validator\RequireValidator::class,
+        'unique' => \Src\Validator\UniqueValidator::class,
+        'min' => \Src\Validator\MinValidator::class,
+        'in' => \Src\Validator\InValidator::class,
+        'date' => \Src\Validator\DateValidator::class,
     ],
 ]; 

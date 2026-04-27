@@ -29,32 +29,29 @@ class View {
     }
 
     public function render(string $view = '', array $data = []): string
-        {
-            $targetView = $view ?: $this->view;
-            $path = $this->getPathToView($targetView);
-            $mainPath = $this->getPathToMain();
+    {
+        $targetView = $view ?: $this->view;
+        $path = $this->getPathToView($targetView);
+        $mainPath = $this->getPathToMain();
 
-            echo "<!-- DEBUG: Main=$mainPath, View=$path -->\n";
-            
-            if (!file_exists($mainPath)) {
-                throw new Exception("Main layout NOT found: $mainPath");
-            }
-            if (!file_exists($path)) {
-                throw new Exception("View NOT found: $path");
-            }
-
-            extract(array_merge($this->data, $data), EXTR_PREFIX_SAME, '');
-            
-            ob_start();
-            require $path;
-            $content = ob_get_clean();
-            
-            echo "<!-- DEBUG: Content length=" . strlen($content) . " -->\n";
-            
-            ob_start();
-            require $mainPath;
-            return ob_get_clean();
+        if (!file_exists($mainPath)) {
+            throw new Exception("Main layout NOT found: $mainPath");
         }
+
+        if (!file_exists($path)) {
+            throw new Exception("View NOT found: $path");
+        }
+
+        extract(array_merge($this->data, $data), EXTR_PREFIX_SAME, '');
+
+        ob_start();
+        require $path;
+        $content = ob_get_clean();
+
+        ob_start();
+        require $mainPath;
+        return ob_get_clean();
+    }
 
     public function __toString(): string {
         return $this->render($this->view, $this->data);

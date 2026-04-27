@@ -9,13 +9,14 @@ abstract class AbstractValidator
     protected array $messageKeys = [];
     protected string $message = '';
 
-    public function __construct(string $fieldName, $value, $args = [], string $message = null)
+    public function __construct(string $fieldName, $value, $args = [], ?string $message = null)
     {
         $this->field = $fieldName;
         $this->value = $value;
         $this->args = $args;
         $this->message = $message ?? $this->message;
         $this->messageKeys = [
+            ":values" => implode(', ', $args),
             ":value" => $this->value,
             ":field" => $this->field,
             ":min" => $args[0] ?? '',

@@ -17,5 +17,9 @@ require_once __DIR__ . '/../routes/web.php';
 
 $app = new Src\Application(getConfigs());
 
-function app() { global $app; return $app; }
+function app() { 
+    global $app; 
+    return $app; 
+}
+
 return $app;

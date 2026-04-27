@@ -5,7 +5,7 @@ use Src\Auth\IdentityInterface;
 
 class User extends Model implements IdentityInterface {
     public $timestamps = false;
-    protected $fillable = ['name', 'login', 'password', 'role'];
+    protected $fillable = ['login', 'password', 'role'];
 
     protected static function booted() {
         static::created(fn($u) => $u->update(['password' => md5($u->password)]));

@@ -7,10 +7,6 @@
 <form method="post">
     <input type="hidden" name="csrf_token" value="<?= app()->auth->generateCSRF() ?>">
     <div class="form-group">
-        <label>Имя</label>
-        <input type="text" name="name" required>
-    </div>
-    <div class="form-group">
         <label>Логин</label>
         <input type="text" name="login" required>
     </div>

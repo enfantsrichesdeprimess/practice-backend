@@ -11,7 +11,6 @@
             <th>Дата рождения</th>
             <th>Должность</th>
             <th>Подразделение</th>
-            <th>Действия</th>
         </tr>
     </thead>
     <tbody>
@@ -20,11 +19,8 @@
             <td><?= htmlspecialchars($worker->surname . ' ' . $worker->name . ' ' . ($worker->last_name ?? '')) ?></td>
             <td><?= $worker->gender === 'male' ? 'М' : 'Ж' ?></td>
             <td><?= date('d.m.Y', strtotime($worker->birthday)) ?></td>
-            <td><?= htmlspecialchars($worker->post_name ?? 'Не указана') ?></td>
-            <td><?= htmlspecialchars($worker->department_name ?? 'Не назначено') ?></td>
-            <td>
-                <a href="<?= app()->route->getUrl('/workers/' . $worker->id) ?>" class="btn">Просмотр</a>
-            </td>
+            <td><?= htmlspecialchars($worker->post->name ?? 'Не указана') ?></td>
+            <td><?= htmlspecialchars($worker->departments->pluck('name')->implode(', ') ?: 'Не назначено') ?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>

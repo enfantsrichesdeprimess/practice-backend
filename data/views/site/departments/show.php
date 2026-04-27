@@ -33,7 +33,7 @@
             <td><?= htmlspecialchars($worker->surname . ' ' . $worker->name . ' ' . ($worker->last_name ?? '')) ?></td>
             <td><?= date('d.m.Y', strtotime($worker->birthday)) ?></td>
             <td><?= floor((time() - strtotime($worker->birthday)) / 31556926) ?> лет</td>
-            <td><?= htmlspecialchars($worker->post_name ?? 'Не указана') ?></td>
+            <td><?= htmlspecialchars($worker->post->name ?? 'Не указана') ?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>

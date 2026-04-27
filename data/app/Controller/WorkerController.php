@@ -14,14 +14,14 @@ class WorkerController {
         if ($request->get('department_id')) {
             $query->whereHas('departments', fn($q) => $q->where('department_id', $request->get('department_id')));
         }
-        return (new View('workers.index', [
+        return (new View('site.workers.index', [
             'workers' => $query->get(),
             'departments' => Department::all()
         ]))->render();
     }
 
     public function create(): string {
-        return (new View('workers.create', [
+        return (new View('site.workers.create', [
             'posts' => Post::all(),
             'departments' => Department::all()
         ]))->render();
@@ -34,7 +34,7 @@ class WorkerController {
         ], ['required' => 'Поле :field обязательно']);
 
         if ($validator->fails()) {
-            return (new View('workers.create', [
+            return (new View('site.workers.create', [
                 'message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE),
                 'posts' => Post::all(), 'departments' => Department::all()
             ]))->render();

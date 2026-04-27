@@ -15,4 +15,4 @@ Route::add('POST', '/workers', [Controller\WorkerController::class, 'store'])->m
 Route::add('GET', '/departments', [Controller\DepartmentController::class, 'index'])->middleware('auth');
 Route::add(['GET', 'POST'], '/departments/create', [Controller\DepartmentController::class, 'create'])->middleware('auth');
 Route::add('GET', '/departments/{id}', [Controller\DepartmentController::class, 'show'])->middleware('auth');
-Route::add('POST', '/departments/{id}/attach', [Controller\DepartmentController::class, 'attach'])->middleware('auth');
+Route::add(['GET', 'POST'], '/departments/{id}/attach', [Controller\DepartmentController::class, 'attach'])->middleware('auth');

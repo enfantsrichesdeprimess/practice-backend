@@ -34,7 +34,6 @@ class AuthController {
         if ($request->method === 'GET') return (new View('auth.signup'))->render();
 
         $validator = new Validator($request->all(), [
-            'name' => ['required'],
             'login' => ['required', 'unique:users,login'],
             'password' => ['required', 'min:6'],
             'role' => ['required', 'in:admin,hr']
@@ -48,7 +47,11 @@ class AuthController {
             return (new View('auth.signup', ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]))->render();
         }
 
-        User::create($request->all());
+        User::create([
+            'login' => $request->login,
+            'password' => $request->password,
+            'role' => $request->role,
+        ]);
         app()->route->redirect('/login');
         return '';
     }
