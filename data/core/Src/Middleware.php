@@ -1,59 +1,52 @@
-<?php 
+<?php
+namespace Src;
+use Src\Traits\SingletonTrait;
+use FastRoute\RouteCollector;
+use FastRoute\RouteParser\Std;
+use FastRoute\DataGenerator\MarkBased;
+use FastRoute\Dispatcher\MarkBased as Dispatcher;
 
- 
+class Middleware {
+    use SingletonTrait;
+    private RouteCollector $middlewareCollector;
 
-namespace Src; 
+    private function __construct() {
+        $this->middlewareCollector = new RouteCollector(new Std(), new MarkBased());
+    }
 
-use FastRoute\RouteCollector; 
-use FastRoute\RouteParser\Std; 
-use FastRoute\DataGenerator\MarkBased; 
-use FastRoute\Dispatcher\MarkBased as Dispatcher; 
-use Src\Traits\SingletonTrait; 
+    public function add($httpMethod, string $route, array $action): void {
+        $this->middlewareCollector->addRoute($httpMethod, $route, $action);
+    }
 
-class Middleware 
-{ 
-   //Используем трейт 
-   use SingletonTrait; 
+    public function group(string $prefix, callable $callback): void {
+        $this->middlewareCollector->addGroup($prefix, $callback);
+    }
 
-   private RouteCollector $middlewareCollector; 
+    public function runMiddlewares(string $httpMethod, string $uri, Request $request): Request {
+        $routeMiddleware = app()->settings->app['routeMiddleware'] ?? [];
+        foreach ($this->getMiddlewaresForRoute($httpMethod, $uri) as $middleware) {
+            $args = explode(':', $middleware);
+            if (isset($routeMiddleware[$args[0]])) {
+                $request = (new $routeMiddleware[$args[0]])->handle($request, $args[1] ?? null) ?? $request;
+            }
+        }
+        return $request;
+    }
 
-   public function add($httpMethod, string $route, array $action): void 
-   { 
-       $this->middlewareCollector->addRoute($httpMethod, $route, $action); 
-   } 
+    public function go(string $httpMethod, string $uri, Request $request): Request {
+        return $this->runMiddlewares($httpMethod, $uri, $this->runAppMiddlewares($request));
+    }
 
-   public function group(string $prefix, callable $callback): void 
-   { 
-       $this->middlewareCollector->addGroup($prefix, $callback); 
-   } 
+    private function runAppMiddlewares(Request $request): Request {
+        $routeAppMiddleware = app()->settings->app['routeAppMiddleware'] ?? [];
+        foreach ($routeAppMiddleware as $name => $class) {
+            $request = (new $class)->handle($request) ?? $request;
+        }
+        return $request;
+    }
 
-   //Конструктор скрыт. Вызывается только один раз 
-   private function __construct() 
-   { 
-       $this->middlewareCollector = new RouteCollector(new Std(), new MarkBased()); 
-   } 
-
-   //Запуск всех middlewares для текущего маршрута 
-   public function runMiddlewares(string $httpMethod, string $uri): Request 
-   { 
-       $request = new Request(); 
-       //Получаем список всех разрешенных классов middlewares из настроек приложения 
-       $routeMiddleware = app()->settings->app['routeMiddleware']; 
- 
-       //Перебираем все middlewares для текущего адреса 
-       foreach ($this->getMiddlewaresForRoute($httpMethod, $uri) as $middleware) { 
-           $args = explode(':', $middleware); 
-           //Создаем объект и вызываем метод handle 
-           (new $routeMiddleware[$args[0]])->handle($request, $args[1]?? null); 
-       } 
-       //Возвращаем итоговый request 
-       return $request; 
-   } 
-
-   //Поиск middlewares по адресу 
-   private function getMiddlewaresForRoute(string $httpMethod, string $uri): array 
-   { 
-       $dispatcherMiddleware = new Dispatcher($this->middlewareCollector->getData()); 
-       return $dispatcherMiddleware->dispatch($httpMethod, $uri)[1] ?? []; 
-   } 
-} 
+    private function getMiddlewaresForRoute(string $httpMethod, string $uri): array {
+        $dispatcherMiddleware = new Dispatcher($this->middlewareCollector->getData());
+        return $dispatcherMiddleware->dispatch($httpMethod, $uri)[1] ?? [];
+    }
+}
