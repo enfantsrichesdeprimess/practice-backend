@@ -10,6 +10,7 @@ Route::add(['GET', 'POST'], '/admin/register', [Controller\AuthController::class
 
 Route::add('GET', '/workers', [Controller\WorkerController::class, 'index'])->middleware('auth');
 Route::add('GET', '/workers/create', [Controller\WorkerController::class, 'create'])->middleware('auth');
+Route::add('GET', '/workers/{id}', [Controller\WorkerController::class, 'show'])->middleware('auth');
 Route::add('POST', '/workers', [Controller\WorkerController::class, 'store'])->middleware('auth');
 
 Route::add('GET', '/departments', [Controller\DepartmentController::class, 'index'])->middleware('auth');

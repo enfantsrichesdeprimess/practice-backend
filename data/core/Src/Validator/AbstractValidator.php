@@ -20,7 +20,7 @@ abstract class AbstractValidator
             ":value" => $this->value,
             ":field" => $this->field,
             ":min" => $args[0] ?? '',
-            ":max" => $args[1] ?? ''
+            ":max" => $args[1] ?? $args[0] ?? ''
         ];
     }
 

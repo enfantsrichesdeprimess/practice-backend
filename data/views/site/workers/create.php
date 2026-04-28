@@ -4,7 +4,7 @@
     <div class="alert alert-danger"><?= $message ?></div>
 <?php endif; ?>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <input type="hidden" name="csrf_token" value="<?= app()->auth->generateCSRF() ?>">
     
     <div class="form-group">
@@ -54,6 +54,11 @@
                 <option value="<?= $dept->id ?>"><?= htmlspecialchars($dept->name) ?></option>
             <?php endforeach; ?>
         </select>
+    </div>
+
+    <div class="form-group">
+        <label>Фотография сотрудника</label>
+        <input type="file" name="photo" accept=".jpg,.jpeg,.png,.gif,.webp,image/*">
     </div>
     
     <h3>Адрес</h3>
