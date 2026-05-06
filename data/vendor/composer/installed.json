@@ -234,6 +234,107 @@
             "install-path": "../doctrine/inflector"
         },
         {
+            "name": "enfantsrichesdeprimess/my-project",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/enfantsrichesdeprimess/my-project.git",
+                "reference": "7b166f6e365bed01472a5039a2d8faa0e52fbdd3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/enfantsrichesdeprimess/my-project/zipball/7b166f6e365bed01472a5039a2d8faa0e52fbdd3",
+                "reference": "7b166f6e365bed01472a5039a2d8faa0e52fbdd3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "time": "2026-05-06T10:25:31+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Practice\\Collect\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Krasov",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A small collection wrapper for working with arrays in PHP",
+            "homepage": "https://github.com/enfantsrichesdeprimess/my-project",
+            "keywords": [
+                "array",
+                "collection",
+                "mvc",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/enfantsrichesdeprimess/my-project/issues",
+                "source": "https://github.com/enfantsrichesdeprimess/my-project"
+            },
+            "install-path": "../enfantsrichesdeprimess/my-project"
+        },
+        {
+            "name": "enfantsrichesdeprimess/second-package",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/enfantsrichesdeprimess/Second-package.git",
+                "reference": "35a9a64b6a61481d288d9c5fde512ca7628da42f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/enfantsrichesdeprimess/Second-package/zipball/35a9a64b6a61481d288d9c5fde512ca7628da42f",
+                "reference": "35a9a64b6a61481d288d9c5fde512ca7628da42f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "13.x-dev",
+                "php": "^8.0"
+            },
+            "time": "2026-05-06T10:25:31+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Practice\\Validation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Krasov",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Reusable validation layer for MVC practice applications",
+            "homepage": "https://github.com/enfantsrichesdeprimess/Second-package",
+            "keywords": [
+                "Forms",
+                "mvc",
+                "php",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/enfantsrichesdeprimess/Second-package/issues",
+                "source": "https://github.com/enfantsrichesdeprimess/Second-package"
+            },
+            "install-path": "../enfantsrichesdeprimess/second-package"
+        },
+        {
             "name": "illuminate/bus",
             "version": "13.x-dev",
             "version_normalized": "13.9999999.9999999.9999999-dev",

@@ -4,7 +4,7 @@ use Src\Request;
 use Src\View;
 use Src\Auth\Auth;
 use Model\User;
-use Src\Validator\Validator;
+use Practice\Validation\Validator;
 
 class AuthController {
     public function login(Request $request): string {

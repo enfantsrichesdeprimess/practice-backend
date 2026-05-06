@@ -18,6 +18,8 @@ return array(
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Psr\\Clock\\' => array($vendorDir . '/psr/clock/src'),
+    'Practice\\Validation\\' => array($vendorDir . '/enfantsrichesdeprimess/second-package/src'),
+    'Practice\\Collect\\' => array($vendorDir . '/enfantsrichesdeprimess/my-project/src'),
     'Laravel\\SerializableClosure\\' => array($vendorDir . '/laravel/serializable-closure/src'),
     'Illuminate\\Support\\' => array($vendorDir . '/illuminate/support', $vendorDir . '/illuminate/reflection', $vendorDir . '/illuminate/collections', $vendorDir . '/illuminate/conditionable', $vendorDir . '/illuminate/macroable'),
     'Illuminate\\Pipeline\\' => array($vendorDir . '/illuminate/pipeline'),

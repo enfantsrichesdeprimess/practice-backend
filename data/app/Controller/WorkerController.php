@@ -7,7 +7,7 @@ use Model\Worker;
 use Model\Department;
 use Model\Post;
 use Model\Address;
-use Src\Validator\Validator;
+use Practice\Validation\Validator;
 
 class WorkerController {
     public function index(Request $request): string {

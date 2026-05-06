@@ -8,7 +8,13 @@
     "php": "^8.0",
     "illuminate/database": "13.x-dev",
     "illuminate/events": "13.x-dev",
-    "nikic/fast-route": "^2.0@dev"
+    "nikic/fast-route": "^2.0@dev",
+    "enfantsrichesdeprimess/my-project": "^1.0",
+    "enfantsrichesdeprimess/second-package": "^1.0"
+  },
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true
   },
   "autoload": {
     "psr-4": {

@@ -5,6 +5,7 @@ use Src\View;
 use Model\Department;
 use Model\Worker;
 use Illuminate\Database\Capsule\Manager as DB;
+use Practice\Collect\Collect;
 
 class DepartmentController {
     public function index(): string {
@@ -24,9 +25,12 @@ class DepartmentController {
         $dept = Department::findOrFail($id);
         $workers = Worker::with('post')->whereHas('departments', fn($q) => $q->where('department_id', $id))->get();
 
-        $avgAge = $workers->count()
-            ? round($workers->avg(fn($worker) => (new \DateTime())->diff(new \DateTime($worker->birthday))->y), 1)
-            : 0;
+        $avgAge = round(
+            Collect::make($workers->all())
+                ->map(fn($worker) => (new \DateTime())->diff(new \DateTime($worker->birthday))->y)
+                ->avg(),
+            1
+        );
 
         $available = Worker::whereNotIn('id', DB::table('workers_in_departments')->where('department_id', $id)->pluck('worker_id'))->get();
 
