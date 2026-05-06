@@ -34,4 +34,36 @@ Clone the repository
 or
 `podman-compose up -d`
 
+## 3. Database
+
+The database is initialized automatically from files in `database/init`.
+
+MariaDB data is stored in the named volume `mariadb_data`, so the database is not deleted on a regular container restart or `docker-compose down`.
+
+If you run `docker-compose down -v`, the volume will be deleted too, and the database will be recreated from the init scripts on the next start.
+
+## 4. Database backup and restore
+
+Backup:
+
+`docker-compose exec -T mariadb mariadb-dump -uroot -p${DB_ROOT_PASSWORD} ${DB_NAME} > database/backups/mvc_dump.sql`
+
+Restore:
+
+`docker-compose exec -T mariadb mariadb -uroot -p${DB_ROOT_PASSWORD} ${DB_NAME} < database/backups/mvc_dump.sql`
+
+## 5. Deploy on another device
+
+1. Clone the repository.
+2. Check the `.env` file values.
+3. Install PHP dependencies for the application:
+
+`cd data && composer install`
+
+4. Return to the project root and start containers:
+
+`docker-compose up -d --build`
+
+After that the application code is installed from Packagist through Composer, and the database is created automatically from `database/init/01-init.sql`.
+
 ## PS Based on original image by https://github.com/jurapro/apache-php-mysql-node

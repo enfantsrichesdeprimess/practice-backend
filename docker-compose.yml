@@ -17,6 +17,11 @@ services:
       - APACHE_RUN_GROUP=${USER_LOGIN:-login}
       - APACHE_DOCUMENT_ROOT=/var/www/html/public
       - LC_CDPATH=/var/www/html
+      - DB_HOST=${DB_HOST:-mariadb}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_DATABASE=${DB_NAME:-mvc}
+      - DB_USERNAME=${DB_USERNAME:-root}
+      - DB_PASSWORD=${DB_PASSWORD:-root}
     restart: always
     container_name: ${USER_LOGIN:-login}_web
     volumes:
@@ -33,11 +38,12 @@ services:
     image: docker.io/library/mariadb:12.2
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ${DB_NAME:-db}
-      MYSQL_ROOT_PASSWORD: ${USER_DB_PASSWORD:-password}
-      MYSQL_USER: ${USER_LOGIN:-login}
-      MYSQL_PASSWORD: ${USER_PASSWORD:-password}
+      MYSQL_DATABASE: ${DB_NAME:-mvc}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
     container_name: ${USER_LOGIN:-login}_mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d:ro
     networks:
       - apache-php-mysql-node-network
 
@@ -74,3 +80,6 @@ services:
 networks:
   apache-php-mysql-node-network:
     driver: bridge
+
+volumes:
+  mariadb_data:

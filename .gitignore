@@ -1,3 +1,4 @@
 /vendor/
 /data/packages/
 /data/vendor/enfantsrichesdeprimess/
+/database/backups/*.sql
