@@ -16,10 +16,9 @@ class View {
 
     private function getRoot(): string {
         global $app;
-        $projectRoot = dirname($_SERVER['DOCUMENT_ROOT']);
-        $root = $app->settings->getRootPath();
+        $projectRoot = $app->settings->getProjectPath();
         $path = $app->settings->getViewsPath();
-        return $projectRoot . $root . $path;
+        return $projectRoot . $path;
     }
 
     private function getPathToMain(): string { return $this->root . $this->layout; }

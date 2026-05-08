@@ -18,11 +18,33 @@ class Settings
    } 
    public function getRootPath(): string 
    { 
-       return $this->path['root'] ? '/' . $this->path['root'] : ''; 
+       $configured = trim((string)($this->path['root'] ?? ''), '/');
+       if ($configured !== '') {
+           return '/' . $configured;
+       }
+
+       $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+       if ($scriptDir === '.' || $scriptDir === '/') {
+           return '';
+       }
+
+       if (str_ends_with($scriptDir, '/public')) {
+           $scriptDir = substr($scriptDir, 0, -7);
+       }
+
+       return rtrim($scriptDir, '/');
    } 
    public function getViewsPath(): string
    {
        return '/' . ($this->path['views'] ?? '');
+   }
+   public function getProjectPath(): string
+   {
+       return dirname(__DIR__, 2);
+   }
+   public function getPublicPath(): string
+   {
+       return $this->getProjectPath() . '/public';
    }
    public function getDbSetting(): array 
    { 

@@ -1,7 +1,7 @@
 <?php
 
 return [
-'root' => '',
+'root' => getenv('APP_ROOT') ?: '',
 'routes' => 'routes',
 'views' => 'views'
 ];

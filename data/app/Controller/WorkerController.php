@@ -103,7 +103,7 @@ class WorkerController {
             $extension = 'jpg';
         }
 
-        $directory = $_SERVER['DOCUMENT_ROOT'] . '/uploads/workers';
+        $directory = app()->settings->getPublicPath() . '/uploads/workers';
         if (!is_dir($directory)) {
             mkdir($directory, 0777, true);
         }

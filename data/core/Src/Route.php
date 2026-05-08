@@ -51,10 +51,16 @@ class Route {
 
     public function start(): void {
         $httpMethod = $_SERVER['REQUEST_METHOD'];
-        $uri = $_SERVER['REQUEST_URI'];
-        if (false !== $pos = strpos($uri, '?')) $uri = substr($uri, 0, $pos);
-        $uri = rawurldecode($uri);
-        $uri = substr($uri, strlen($this->prefix));
+        $uri = rawurldecode(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
+
+        if ($this->prefix !== '' && str_starts_with($uri, $this->prefix)) {
+            $uri = substr($uri, strlen($this->prefix));
+        }
+
+        $uri = rtrim($uri, '/') ?: '/';
+        if (!str_starts_with($uri, '/')) {
+            $uri = '/' . $uri;
+        }
 
         $dispatcher = new Dispatcher($this->routeCollector->getData());
         $routeInfo = $dispatcher->dispatch($httpMethod, $uri);

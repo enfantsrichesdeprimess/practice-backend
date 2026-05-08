@@ -19,7 +19,7 @@ class Worker extends Model implements IdentityInterface {
         $file = Collect::make(['jpg', 'jpeg', 'png', 'gif', 'webp'])
             ->map(fn($extension) => [
                 'relative' => '/uploads/workers/' . $this->id . '.' . $extension,
-                'absolute' => $_SERVER['DOCUMENT_ROOT'] . '/uploads/workers/' . $this->id . '.' . $extension,
+                'absolute' => app()->settings->getPublicPath() . '/uploads/workers/' . $this->id . '.' . $extension,
             ])
             ->first(fn($item) => file_exists($item['absolute']));
 
