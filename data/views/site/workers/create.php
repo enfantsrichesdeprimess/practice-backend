@@ -4,7 +4,7 @@
     <div class="alert alert-danger"><?= $message ?></div>
 <?php endif; ?>
 
-<form method="post" enctype="multipart/form-data">
+<form method="post" action="<?= app()->route->getUrl('/workers') ?>" enctype="multipart/form-data">
     <input type="hidden" name="csrf_token" value="<?= app()->auth->generateCSRF() ?>">
     
     <div class="form-group">

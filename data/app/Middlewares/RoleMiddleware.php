@@ -6,6 +6,9 @@ use Src\Auth\Auth;
 class RoleMiddleware {
     public function handle(Request $request, $role = null): void {
         if (!Auth::check()) app()->route->redirect('/login');
-        if ($role && Auth::user()->role !== $role) die('Доступ запрещен: недостаточно прав.');
+        if ($role && Auth::user()->role !== $role) {
+            http_response_code(403);
+            exit('Доступ запрещен: недостаточно прав.');
+        }
     }
 }

@@ -45,8 +45,12 @@ CREATE TABLE IF NOT EXISTS `users` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `login` VARCHAR(50) NOT NULL UNIQUE,
     `password` VARCHAR(255) NOT NULL,
+    `api_token` VARCHAR(64) UNIQUE,
     `role` ENUM('admin', 'hr') NOT NULL DEFAULT 'hr'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+ALTER TABLE `users`
+    ADD COLUMN IF NOT EXISTS `api_token` VARCHAR(64) UNIQUE AFTER `password`;
 
 INSERT INTO `address` (`town`, `home`, `home_number`, `flat`)
 SELECT 'Томск', 'Ленина', 36, 14

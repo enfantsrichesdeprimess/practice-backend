@@ -10,6 +10,7 @@ use Src\Traits\SingletonTrait;
 class Route {
     use SingletonTrait;
     private string $prefix = '';
+    private string $groupPrefix = '';
     private RouteCollector $routeCollector;
     private string $currentRoute = '';
     private $currentHttpMethod;
@@ -19,6 +20,7 @@ class Route {
     }
 
     public static function add($httpMethod, string $route, array $action): self {
+        $route = rtrim(self::single()->groupPrefix . $route, '/') ?: '/';
         self::single()->routeCollector->addRoute($httpMethod, $route, $action);
         self::single()->currentHttpMethod = $httpMethod;
         self::single()->currentRoute = $route;
@@ -26,8 +28,11 @@ class Route {
     }
 
     public static function group(string $prefix, callable $callback): void {
-        self::single()->routeCollector->addGroup($prefix, $callback);
-        Middleware::single()->group($prefix, $callback);
+        $route = self::single();
+        $previous = $route->groupPrefix;
+        $route->groupPrefix .= $prefix;
+        $callback();
+        $route->groupPrefix = $previous;
     }
 
     public function setPrefix(string $value = ''): self {

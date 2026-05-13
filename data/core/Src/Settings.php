@@ -38,6 +38,10 @@ class Settings
    {
        return '/' . ($this->path['views'] ?? '');
    }
+   public function getRoutePath(): string
+   {
+       return '/' . ($this->path['routes'] ?? 'routes');
+   }
    public function getProjectPath(): string
    {
        return dirname(__DIR__, 2);
@@ -50,4 +54,16 @@ class Settings
    { 
        return $this->db ?? []; 
    } 
+   public function getAuthClassName(): string
+   {
+       return $this->app['auth'] ?? \Src\Auth\Auth::class;
+   }
+   public function getIdentityClassName(): string
+   {
+       return $this->app['identity'] ?? \Model\User::class;
+   }
+   public function removeAppMiddleware(string $key): void
+   {
+       unset($this->_settings['app']['routeAppMiddleware'][$key]);
+   }
 } 

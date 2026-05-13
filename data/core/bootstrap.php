@@ -28,6 +28,7 @@ function loadEnv(string $path): void
 loadEnv(dirname(__DIR__) . '/.env');
 
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/helpers.php';
 
 function getConfigs(string $path = '/../config'): array 
 {
@@ -41,13 +42,6 @@ function getConfigs(string $path = '/../config'): array
     return $settings;
 }
 
-require_once __DIR__ . '/../routes/web.php';
-
 $app = new Src\Application(getConfigs());
-
-function app() { 
-    global $app; 
-    return $app; 
-}
 
 return $app;
